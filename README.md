@@ -1,6 +1,6 @@
 # server-monitor
 Raspberry Pi server room environment monitor. Monitors temperature, humidity, external power, and internet connection. Sends an alert via text message over Twilio's message API.  
-#####Hardware Modules:  
+##### Hardware Modules:  
 &ensp; • DHT22 for temperature and humidity.  
 &ensp; • WaveShare SIM7600X 4G Hat for cellular connection.  
 &ensp; • MakerFocus UPS pack for power monitoring and backup power supply.  
