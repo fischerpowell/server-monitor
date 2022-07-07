@@ -6,5 +6,8 @@ Raspberry Pi server room environment monitor. Monitors temperature, humidity, ex
 &ensp; • MakerFocus UPS pack for power monitoring and backup power supply.  
 &ensp; • LCD Screen with i2c backpack for display.  
   
-## Concept Diagram:  
-![Diagram](screens/diagram.png?raw=true "Title")
+## Concept Diagrams
+### Graphic:
+![Graphic Diagram](screens/diagram.png?raw=true "Title")
+### Real:
+![Real Diagram](screens/real.png?raw=true "Title")
