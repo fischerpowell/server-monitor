@@ -7,3 +7,4 @@ Raspberry Pi server room environment monitor. Monitors temperature, humidity, ex
 &ensp; • LCD Screen with i2c backpack for display.  
   
 ## Concept Diagram:  
+![Diagram](screens/diagram.png?raw=true "Title")
