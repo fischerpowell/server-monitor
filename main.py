@@ -53,16 +53,16 @@ screen_list = [0, 1, 2] #Possible screens. 0 is Temp/Humidity. 1 is Internet. 2 
 
 hold_time = 3 #How long to hold the button before toggling the display value
 
-account_sid = 'AC325859b4ae05eb8f62733b20ea5556e4' #Used for Twilio messenger. Values can be found when viewing the Messenging account details
-auth_token = 'a31f5dfa1f39e73d2870e9c7185be7ab' 
+account_sid = 'Twilio SID' #Used for Twilio messenger. Values can be found when viewing the Messenging account details
+auth_token = 'Twilio Auth Token' 
 Client = Client(account_sid, auth_token)
-messenger_number = '+19472256990' #Phone number for Twilio messenger
+messenger_number = 'Twilio Messenger Number' #Phone number for Twilio messenger
 
 check_conn_host = "8.8.8.8" #Host IP and port to be used when testing connection to the internet.
 check_conn_port = 53
 
 location = 'HQ' #Location to announce when sending messages.
-alert_list = ['+13614496959',] #List of phone numbers to send alerts to
+alert_list = ['Phone Number 1',] #List of phone numbers to send alerts to
 message_dict = {'temp_hot' : 'Room temperature is too hot.\nCurrent Temperature: _PLACEHOLDER_ F',
                 'temp_cold' : 'Room temperature is too cold.\nCurrent Temperature: _PLACEHOLDER_ F',
                 'humid_high' : 'Room humidity is too high.\nCurrent Value: _PLACEHOLDER_ rH',
