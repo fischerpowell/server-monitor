@@ -31,4 +31,5 @@ Raspberry Pi server room environment monitor. Monitors temperature, humidity, ex
 &ensp; d. Possibly change the range for the temperature and humidity in the check_value_dict.  
 &ensp; e. Set debug to True or False. Debug mode only prints the messages to be sent to console, rather than actually sending them as text messages. This can save you from accidentally spending a lot of money.  
 ### 4. Run code
-&ensp; sudo python3 main.py. Must be ran with su privileges.
+&ensp; sudo python3 main.py.  
+&ensp; Must be ran with su privileges.
