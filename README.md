@@ -24,11 +24,11 @@ Raspberry Pi server room environment monitor. Monitors temperature, humidity, ex
 &emsp; e. SIM Hat is connected using serial over usb, and enabled to run a ppp connection.  
 ### 2. Install Dependencies  
 &ensp; pip3 install twilio rpi-lcd adafruit-dht  
-### 3. Configure code
+### 3. Configure config
 &ensp; a. Input your Twilio Messaging SID, Token, and Phone Number.  
 &ensp; b. Input location.  
 &ensp; c. Input the phone numbers to alert into the alert_list.  
-&ensp; d. Possibly change the range for the temperature and humidity in the check_value_dict.  
+&ensp; d. Possibly change the range for the temperature and humidity.  
 &ensp; e. Set debug to True or False. Debug mode only prints the messages to be sent to console, rather than actually sending them as text messages. This can save you from accidentally spending a lot of money.  
 ### 4. Run code
 &ensp; sudo python3 main.py.  
