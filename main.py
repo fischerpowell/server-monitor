@@ -9,6 +9,10 @@ from twilio.rest import Client
 import os
 import socket
 import signal
+import configparser
+
+config = configparser.ConfigParser()
+config.read('setup.conf')
 
 #Initializing devices. DHT (Sensor), LCD, Button, UPS
 
@@ -53,16 +57,16 @@ screen_list = [0, 1, 2] #Possible screens. 0 is Temp/Humidity. 1 is Internet. 2 
 
 hold_time = 3 #How long to hold the button before toggling the display value
 
-account_sid = 'Twilio SID' #Used for Twilio messenger. Values can be found when viewing the Messenging account details
-auth_token = 'Twilio Auth Token' 
+account_sid = config.get('twilio', 'account_sid') #Used for Twilio messenger. Values can be found when viewing the Messenging account details
+auth_token = config.get('twilio', 'auth_token')
 Client = Client(account_sid, auth_token)
-messenger_number = 'Twilio Messenger Number' #Phone number for Twilio messenger
+messenger_number = config.get('twilio', 'messenger_number') #Phone number for Twilio messenger
 
-check_conn_host = "8.8.8.8" #Host IP and port to be used when testing connection to the internet.
-check_conn_port = 53
+check_conn_host = config.get('monitor', 'check_ip') #Host IP and port to be used when testing connection to the internet.
+check_conn_port = int(config.get('monitor', 'check_port'))
 
-location = 'HQ' #Location to announce when sending messages.
-alert_list = ['Phone Number 1',] #List of phone numbers to send alerts to
+location = config.get('general', 'location') #Location to announce when sending messages.
+alert_list = config.get('general', 'alert_list') #List of phone numbers to send alerts to
 message_dict = {'temp_hot' : 'Room temperature is too hot.\nCurrent Temperature: _PLACEHOLDER_ F',
                 'temp_cold' : 'Room temperature is too cold.\nCurrent Temperature: _PLACEHOLDER_ F',
                 'humid_high' : 'Room humidity is too high.\nCurrent Value: _PLACEHOLDER_ rH',
@@ -71,25 +75,25 @@ message_dict = {'temp_hot' : 'Room temperature is too hot.\nCurrent Temperature:
                 'power' : 'External power unavailable.\nServer Monitor UPS Capacity: _PLACEHOLDER_%'
                 } #Specific alert messages. Header is added in the message function, and the _PLACEHOLDER_ is filled in with multiprocessing values
 
-debug = True #If this is set to true, the program will not actually send messages or start pon. Instead, messages will be displayed in terminal.
+debug = config.get('general', 'debug') #If this is set to true, the program will not actually send messages or start pon. Instead, messages will be displayed in terminal.
 
-check_value_dict = {'temp' : [0,'range', 53.0, 75.1],
-                    'humid' : [0, 'range', 40.0, 60.0],
+check_value_dict = {'temp' : [0,'range', float(config.get('monitor', 'temp_lowest')), float(config.get('monitor', 'temp_highest'))],
+                    'humid' : [0, 'range', float(config.get('monitor', 'humidity_lowest')), float(config.get('monitor', 'humidity_highest'))],
                     'internet' : [0, 'bool'],
                     'power' : [0, 'bool']} #Dictionary used when monitoring values. A message is only sent after a value has been checked and failed three times.
 #[0] counts how many times the value has been checked and failed, meaning a message will be sent after it reaches value 2
 #[1] specifies the type of value it is. Temp and humid are integers that have to stay between a range and internet and power are booleans that have to be 1
 #[2] and [3] are only included if the value is a range. [2] is the start of the range and [3] is the end. For example, temperature has to stay between 53.0 and 75.1 degrees F
 
-minute_interval = 5 #How many minutes to wait between sending a warning message for the same monitored value.
+minute_interval = int(config.get('monitor', 'minute_interval')) #How many minutes to wait between sending a warning message for the same monitored value.
 #For example, after sending a message about the power, if the minute interval is set to 2, it will wait 2 minutes before sending another one
 #This will not effect messages of different types. For example, if a message is sent about power, and then the internet goes out, it will not wait to send a message about the internet.
 
-up_env_interval = 1 #Intervals in seconds to be used when updating the different parameters. up_env_interval is for updating the temperature and humidity
-up_conn_interval = 20 #Interval in seconds for testing the internet connection
-up_power_interval = 1 #Interval in seconds for testing external power connection
-up_screen_interval = 1 #Interval in seconds for updating LCD screen
-monitor_interval = 5 #Interval in seconds for checking the monitored values.
+up_env_interval = int(config.get('monitor', 'up_env_interval')) #Intervals in seconds to be used when updating the different parameters. up_env_interval is for updating the temperature and humidity
+up_conn_interval = int(config.get('monitor', 'up_conn_interval')) #Interval in seconds for testing the internet connection
+up_power_interval = int(config.get('monitor', 'up_power_interval')) #Interval in seconds for testing external power connection
+up_screen_interval = int(config.get('monitor', 'up_screen_interval')) #Interval in seconds for updating LCD screen
+monitor_interval = int(config.get('monitor', 'monitor_interval')) #Interval in seconds for checking the monitored values.
 
 #Normal functions to be used
 
